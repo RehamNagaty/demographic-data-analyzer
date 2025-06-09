@@ -1,14 +1,12 @@
 import pandas as pd
 
 def demographic_data_analysis():
-    # Load dataset with headers
     df = pd.read_csv("adult.data", header=None, names=[
         "age", "workclass", "fnlwgt", "education", "education-num", "marital-status",
         "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss",
         "hours-per-week", "native-country", "salary"
     ])
 
-    # Strip whitespace from string columns (fix applymap warning)
     for col in df.select_dtypes(include=['object']).columns:
         df[col] = df[col].str.strip()
 
@@ -50,7 +48,6 @@ def demographic_data_analysis():
     top_IN_occupation = df[(df['native-country'] == 'India') & (df['salary'] == '>50K')]['occupation'].mode()
     top_IN_occupation = top_IN_occupation.iloc[0] if not top_IN_occupation.empty else None
 
-    # Prepare results dictionary
     results = {
         "race_count": race_count,
         "average_age_men": average_age_men,
@@ -64,7 +61,6 @@ def demographic_data_analysis():
         "top_IN_occupation": top_IN_occupation
     }
 
-    # Print results
     print("Number of each race:\n", race_count)
     print("Average age of men:", average_age_men)
     print("Percentage with Bachelors degrees:", percentage_bachelors)
@@ -78,7 +74,6 @@ def demographic_data_analysis():
 
     return results
 
-# If you want to run the script directly
 if __name__ == "__main__":
     demographic_data_analysis()
 
